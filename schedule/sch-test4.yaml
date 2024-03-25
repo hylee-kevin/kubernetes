@@ -1,0 +1,15 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: sch-test4
+spec:
+  nodeSelector:
+    cputype: gpu
+  containers:
+  - image: nginx:1.25.3
+    name: sch-test4
+  tolerations:
+  - key: "cputype"
+    operator: "Equal"
+    value: "gpu"
+    effect: "NoSchedule"

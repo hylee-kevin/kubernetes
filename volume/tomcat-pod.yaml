@@ -1,0 +1,35 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: tomcat
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      run: tomcat  
+  template:
+    metadata:
+      labels:
+        run: tomcat
+    spec:
+      containers:
+      - image: tomcat
+        name: tomcat
+        ports:
+        - containerPort: 8080
+        env:
+        - name: UMASK
+          value: "0022"
+        volumeMounts:
+        - name: tomcat-log
+          mountPath: /usr/local/tomcat/logs
+      - image: logstash:7.17.16
+        name: logstash       
+        volumeMounts:
+        - name: tomcat-log
+          mountPath: /mnt
+        args: ["-e input { file { path => \"/mnt/localhost_access_log.*\" } } output { stdout { codec => rubydebug } elasticsearch { hosts => [\"http://elasticsearch-svc.default.svc.cluster.local:9200\"] } }"]  
+      volumes:
+      - name: tomcat-log
+        emptyDir: {}
+

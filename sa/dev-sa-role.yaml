@@ -1,0 +1,24 @@
+apiVersion: rbac.authorization.k8s.io/v1
+kind: Role
+metadata:
+  name: sa-test-role
+  namespace: dev-ns
+rules:
+  - apiGroups: [""] 
+    resources: ["pods"]
+    verbs: ["get", "watch", "list"]
+---
+apiVersion: rbac.authorization.k8s.io/v1
+kind: RoleBinding
+metadata:
+  name: sa-test-rolebinding
+  namespace: dev-ns
+subjects:
+  - kind: ServiceAccount
+    name: dev-sa 
+    namespace: dev-ns
+roleRef:
+  kind: Role 
+  name: sa-test-role 
+  apiGroup: rbac.authorization.k8s.io
+

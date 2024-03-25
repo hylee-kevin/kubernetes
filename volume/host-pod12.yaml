@@ -1,0 +1,38 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: host-pod1
+spec:
+  nodeSelector:
+    kubernetes.io/hostname: k8s-node1
+  containers:
+  - name: container
+    image: dbgurum/k8s-lab:initial
+    volumeMounts:
+    - name: host-path
+      mountPath: /mount1
+  volumes:
+  - name: host-path
+    hostPath:
+      path: /DATA1/fastcampus
+      type: DirectoryOrCreate
+---
+apiVersion: v1
+kind: Pod
+metadata:
+  name: host-pod2
+spec:
+  nodeSelector:
+    kubernetes.io/hostname: k8s-node2
+  containers:
+  - name: container
+    image: dbgurum/k8s-lab:initial
+    volumeMounts:
+    - name: host-path
+      mountPath: /mount1
+  volumes:
+  - name: host-path
+    hostPath:
+      path: /DATA1/fastcampus
+      type: DirectoryOrCreate
+

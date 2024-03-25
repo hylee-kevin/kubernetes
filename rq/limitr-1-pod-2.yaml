@@ -1,0 +1,14 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: limitr-1-pod-2
+  namespace: ops-ns
+spec:
+  containers:
+  - name: container
+    image: nginx
+    resources:
+      requests:
+        cpu: 1
+        memory: "128Mi"
+

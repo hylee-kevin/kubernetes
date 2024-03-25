@@ -1,0 +1,17 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: myweb-rq1
+  namespace: dev-ns
+spec:
+  containers:
+  - image: nginx
+    name: myweb-rq1
+    resources:
+      requests:
+        cpu: "50m"
+        memory: 0.5Gi
+      limits:
+        cpu: "100m"
+        memory: 0.5Gi
+

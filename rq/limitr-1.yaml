@@ -1,0 +1,19 @@
+apiVersion: v1
+kind: LimitRange
+metadata:
+  name: limitr-1
+  namespace: ops-ns
+spec:
+  limits:
+  - type: Container
+    max:
+      cpu: "2"
+    min:
+      cpu: "200m"
+    default:
+      cpu: 1
+      memory: 512Mi
+    defaultRequest:
+      cpu: 0.5
+      memory: 256Mi
+

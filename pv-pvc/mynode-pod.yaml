@@ -1,0 +1,18 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: mynode-pod
+spec:
+  containers:
+  - image: dbgurum/mynode:1.0
+    name: mynode-container
+    ports:
+    - containerPort: 8000
+    volumeMounts:
+    - name: mynode-path
+      mountPath: /mynode
+  volumes:
+  - name: mynode-path
+    persistentVolumeClaim:
+      claimName: pvc1
+

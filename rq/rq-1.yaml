@@ -1,0 +1,12 @@
+apiVersion: v1
+kind: ResourceQuota
+metadata:
+  name: rq-1
+  namespace: dev-ns
+spec:
+  hard:
+    requests.cpu: "100m"
+    limits.cpu: "200m"
+    requests.memory: 1Gi
+    limits.memory: 1Gi
+

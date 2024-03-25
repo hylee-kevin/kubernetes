@@ -1,0 +1,19 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: app-deploy
+spec:
+  selector:
+    matchLabels:
+      app: app-pod
+  replicas: 3
+  template:
+    metadata:
+      labels:
+        app: app-pod
+    spec:
+      containers:
+      - name: app-test
+        image: dbgurum/k8s-lab:v1.0
+        ports:
+        - containerPort: 8080

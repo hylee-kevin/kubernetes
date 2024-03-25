@@ -1,0 +1,20 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: temp-pod1
+spec:
+  volumes:
+  - name: temp-vol
+    emptyDir: {}
+  containers:
+  - image: dbgurum/k8s-lab:initial
+    name: temp-container1
+    volumeMounts:
+    - name: temp-vol
+      mountPath: /mount1
+  - image: dbgurum/k8s-lab:initial
+    name: temp-container2
+    volumeMounts:
+    - name: temp-vol
+      mountPath: /mount2
+

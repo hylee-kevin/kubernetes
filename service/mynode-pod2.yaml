@@ -1,0 +1,12 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  labels:
+    run: mynode-pod2
+  name: mynode-pod2
+spec:
+  containers:
+  - image: dbgurum/mynode:1.0
+    name: mynode-pod2
+    ports:
+    - containerPort: 8000

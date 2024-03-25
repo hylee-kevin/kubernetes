@@ -1,0 +1,49 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: visit-cnt-stfs-svc
+  labels:
+    app: visit-cnt-stfs
+spec:
+  ports:
+  - port: 8080
+    protocol: TCP
+  selector:
+    app: visit-cnt-stfs
+  clusterIP: None
+---
+apiVersion: apps/v1
+kind: StatefulSet
+metadata:
+  name: visit-cnt-stfs
+spec:
+  selector:
+    matchLabels:
+      app: visit-cnt-stfs
+  serviceName: visit-cnt-stfs-svc
+  replicas: 2
+  template:
+    metadata:
+      labels:
+        app: visit-cnt-stfs
+    spec:
+      containers:
+      - name: stfs-container
+        image: dbgurum/mynode:fc.stfs
+        ports:
+        - name: http
+          containerPort: 8080
+        volumeMounts:
+        - name: data
+          mountPath: /var/data
+  volumeClaimTemplates:
+  - metadata:
+      name: data
+    spec:
+      resources:
+        requests:
+          storage: 1Gi
+      accessModes:
+      - ReadWriteOnce
+      storageClassName: "openebs-hostpath"
+

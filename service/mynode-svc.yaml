@@ -1,0 +1,17 @@
+apiVersion: v1
+kind: Service
+metadata:
+  creationTimestamp: null
+  labels:
+    run: mynode
+  name: mynode-svc
+spec:
+  ports:
+  - port: 9001
+    protocol: TCP
+    targetPort: 8000
+  selector:
+    run: mynode
+  type: ClusterIP
+status:
+  loadBalancer: {}

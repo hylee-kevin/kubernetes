@@ -1,0 +1,14 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: mynode-pod
+  labels:
+    run: mynode
+spec:
+  nodeSelector:
+    kubernetes.io/hostname: k8s-node2
+  containers:
+  - image: dbgurum/mynode:1.0
+    name: mynode-pod
+    ports:
+    - containerPort: 8000

@@ -1,0 +1,21 @@
+kind: Deployment
+apiVersion: apps/v1
+metadata:
+  name: svc-lab
+spec:
+  selector:
+    matchLabels:
+      app: svc-lab
+  replicas: 3
+  template:
+    metadata:
+      labels:
+        app: svc-lab
+    spec:
+      containers:
+      - name: http-test
+        image: python:2.7
+        command: ["/bin/bash","-c","echo \"<h>Welcome to my Pod $(hostname)</h>\" > index.html; python -m SimpleHTTPServer 8080"]
+        ports:
+        - name: http
+          containerPort: 8080

@@ -1,0 +1,21 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: weblog-pod
+spec:
+  nodeSelector:
+    kubernetes.io/hostname: k8s-node1
+  containers:
+  - name: nginx-web
+    image: nginx:1.23.1-alpine
+    ports:
+    - containerPort: 80
+    volumeMounts:
+    - name: host-path
+      mountPath: /var/log/nginx
+  volumes:
+  - name: host-path
+    hostPath:
+      path: /DATA1/nginx-log
+      type: DirectoryOrCreate
+

@@ -1,0 +1,17 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: temp-mem-pod
+spec:
+  volumes:
+  - name: memory-vol
+    emptyDir:
+      medium: Memory
+      sizeLimit: 1Gi	# sizeLimit 미 설정 시 기본 2G로 설정 및 제한됨
+  containers:
+  - image: dbgurum/k8s-lab:initial
+    name: mem-container
+    volumeMounts:
+    - name: memory-vol
+      mountPath: /mem-mount
+

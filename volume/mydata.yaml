@@ -1,0 +1,22 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: mydata-pod
+spec:
+  nodeSelector:
+    kubernetes.io/hostname: k8s-node1
+  containers:
+  - name: mydata-container
+    image: mysql:8.0
+    volumeMounts:
+    - name: host-path
+      mountPath: /var/lib/mysql
+    env:
+    - name: MYSQL_ROOT_PASSWORD
+      value: "password"
+  volumes:
+  - name: host-path
+    hostPath:
+      path: /DATA1/mysql-data
+      type: DirectoryOrCreate
+

@@ -1,0 +1,26 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: log-pod
+spec:
+  containers:
+  - name: app-container
+    image: nginx:1.25.3
+    volumeMounts:
+    - name: html-log
+      mountPath: /usr/share/nginx/html
+  - name: sidecar-container
+    image: debian:10
+    volumeMounts:
+    - name: html-log
+      mountPath: /date-log
+    command: ["/bin/sh", "-c"]
+    args:
+      - while true; do
+          date >> /date-log/index.html;
+          sleep 1;
+        done
+  volumes:
+  - name: html-log
+    emptyDir: {}
+
