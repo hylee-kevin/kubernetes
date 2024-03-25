@@ -1,0 +1,30 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: front-web-svc
+spec:
+  selector:
+    job: web
+  ports:
+  - port: 8081
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: infra-web-svc
+spec:
+  selector:
+    job: web
+    type: infra
+  ports:
+  - port: 8083
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: infra-svc
+spec:
+  selector:
+    type: infra
+  ports:
+  - port: 8082

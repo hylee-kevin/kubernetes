@@ -1,0 +1,26 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  creationTimestamp: null
+  labels:
+    app: mymotto-deploy
+  name: mymotto-deploy
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: mymotto-deploy
+  strategy: {}
+  template:
+    metadata:
+      creationTimestamp: null
+      labels:
+        app: mymotto-deploy
+    spec:
+      containers:
+      - image: dbgurum/mymotto:1.0
+        name: mymotto
+        ports:
+        - containerPort: 80
+        resources: {}
+status: {}

@@ -1,0 +1,47 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: label-pod-a
+  namespace: infra-team-ns1
+  labels:
+    type: infra
+spec:
+  containers:
+  - name: pod-a-container
+    image: dbgurum/k8s-lab:initial
+---
+apiVersion: v1
+kind: Pod
+metadata:
+  name: label-pod-b
+  namespace: infra-team-ns1
+  labels:
+    type: infra
+spec:
+  containers:
+  - name: pod-b-container
+    image: dbgurum/k8s-lab:initial
+---
+apiVersion: v1
+kind: Pod
+metadata:
+  name: label-pod-c
+  namespace: infra-team-ns1
+  labels:
+    type: infra
+spec:
+  containers:
+  - name: pod-c-container
+    image: dbgurum/k8s-lab:initial
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: infra-svc
+  namespace: infra-team-ns1
+spec:
+  selector:
+    type: infra
+  ports:
+  - port: 7777
+

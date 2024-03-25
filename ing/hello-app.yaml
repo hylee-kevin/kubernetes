@@ -1,0 +1,22 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: hello-app-pod
+  labels:
+    app: hello
+spec:
+  containers:
+    - name: hello-container
+      image: dbgurum/ingress:hi
+      args:
+        - "-text=Hello, Fastcampus."
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: hello-app-svc
+spec:
+  selector:
+    app: hello
+  ports:
+    - port: 5678

@@ -1,0 +1,72 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: svc-pod-1
+  labels:
+    app: svc
+spec:
+  containers:
+    - name: svc1-container
+      image: dbgurum/ingress:hi
+      args:
+        - "-text=This is the SERVICE page of fastcompus.k8s. -1-"
+---
+apiVersion: v1
+kind: Pod
+metadata:
+  name: svc-pod-2
+  labels:
+    app: svc
+spec:
+  containers:
+    - name: svc2-container
+      image: dbgurum/ingress:hi
+      args:
+        - "-text=This is the SERVICE page of fastcompus.k8s. -2-"
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: svc-page
+spec:
+  selector:
+    app: svc
+  ports:
+    - port: 5678
+---
+apiVersion: v1
+kind: Pod
+metadata:
+  name: cloud-pod-1
+  labels:
+    app: cloud
+spec:
+  containers:
+    - name: cloud1-container
+      image: dbgurum/ingress:hi
+      args:
+        - "-text=This is the CLOUD page of fastcompus.k8s. -1-"
+---
+apiVersion: v1
+kind: Pod
+metadata:
+  name: cloud-pod-2
+  labels:
+    app: cloud
+spec:
+  containers:
+    - name: cloud2-container
+      image: dbgurum/ingress:hi
+      args:
+        - "-text=This is the CLOUD page of fastcompus.k8s. -2-"
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: cloud-page
+spec:
+  selector:
+    app: cloud
+  ports:
+    - port: 5678
+

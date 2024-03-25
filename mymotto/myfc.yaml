@@ -1,0 +1,12 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  labels:
+    run: myfc
+  name: myfc
+spec:
+  containers:
+  - image: dbgurum/fastcampus:fcw1.0
+    name: myfc
+    ports:
+    - containerPort: 80

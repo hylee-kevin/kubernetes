@@ -1,0 +1,17 @@
+apiVersion: batch/v1
+kind: Job
+metadata:
+  name: hello-job
+spec:
+  completions: 10		# 원하는 Pod 수를 지정, 하나씩 완료될 때까지 관리
+  template:
+    metadata:
+    spec:
+      containers:
+      - command:
+        - echo
+        - Hello I'm running job
+        image: busybox
+        name: hello-job
+      restartPolicy: Never
+

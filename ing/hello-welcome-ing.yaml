@@ -1,0 +1,26 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: hello-welcome
+  annotations:
+    nginx.ingress.kubernetes.io/rewrite-target: /
+spec:
+  ingressClassName: nginx  
+  rules:  
+  - http:
+      paths:
+      - path: /hello
+        pathType: Prefix
+        backend:
+          service:
+            name: hello-svc
+            port:
+              number: 5678  
+      - path: /welcome
+        pathType: Prefix
+        backend:
+          service:
+            name: welcome-svc
+            port:
+              number: 5678 
+

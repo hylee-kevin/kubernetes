@@ -1,0 +1,10 @@
+apiVersion: metallb.io/v1beta1
+kind: L2Advertisement
+metadata:
+  name: network-l2-lb-01
+  namespace: metallb-system
+spec:
+  ipAddressPools:
+  - ip-pool-01
+  - ip-pool-02
+
