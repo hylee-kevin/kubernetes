@@ -1,0 +1,36 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  annotations:
+    kompose.cmd: kompose convert
+    kompose.version: 1.28.0 (c4137012e)
+  creationTimestamp: null
+  labels:
+    io.kompose.service: mydiary-front
+  name: mydiary-front
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      io.kompose.service: mydiary-front
+  strategy: {}
+  template:
+    metadata:
+      annotations:
+        kompose.cmd: kompose convert
+        kompose.version: 1.28.0 (c4137012e)
+      creationTimestamp: null
+      labels:
+        io.kompose.network/3tier-rolling-fe-be: "true"
+        io.kompose.service: mydiary-front
+    spec:
+      nodeSelector:
+        kubernetes.io/hostname: k8s-node1
+      containers:
+        - image: dbgurum/mydiary-front:1.0 
+          name: rolling-front
+          ports:
+            - containerPort: 3000
+          resources: {}
+      restartPolicy: Always
+status: {}

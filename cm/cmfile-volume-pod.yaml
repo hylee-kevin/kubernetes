@@ -1,0 +1,19 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  labels:
+    run: cmfile-volume-pod
+  name: cmfile-volume-pod
+spec:
+  containers:
+  - image: nginx:1.25.3-alpine
+    name: cmfile-volume-pod
+    ports:
+    - containerPort: 80
+    volumeMounts:
+    - name: redis-volume
+      mountPath: /opt/redis/config
+  volumes:
+  - name: redis-volume
+    configMap:
+      name: redis-config

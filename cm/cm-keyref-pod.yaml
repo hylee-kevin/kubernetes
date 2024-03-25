@@ -1,0 +1,16 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: cm-keyref-pod
+spec:
+  containers:
+    - name: cm-keyref-container
+      image: busybox
+      command: [ "/bin/sh", "-c", "env" ]
+      env:
+        - name: RUNTIME_METHOD
+          valueFrom:
+            configMapKeyRef:
+              name: k8s-env
+              key: runtime
+

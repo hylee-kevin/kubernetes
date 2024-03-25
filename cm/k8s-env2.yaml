@@ -1,0 +1,8 @@
+apiVersion: v1
+data:
+  orchestrator: kubernetes
+  runtime: containerd
+kind: ConfigMap
+metadata:
+  creationTimestamp: null
+  name: k8s-env2

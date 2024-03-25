@@ -1,0 +1,44 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  annotations:
+    kompose.cmd: kompose convert
+    kompose.version: 1.28.0 (c4137012e)
+  creationTimestamp: null
+  labels:
+    io.kompose.service: mydiary-back
+  name: mydiary-back
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      io.kompose.service: mydiary-back
+  strategy: {}
+  template:
+    metadata:
+      annotations:
+        kompose.cmd: kompose convert
+        kompose.version: 1.28.0 (c4137012e)
+      creationTimestamp: null
+      labels:
+        io.kompose.network/3tier-rolling-be-db: "true"
+        io.kompose.network/3tier-rolling-fe-be: "true"
+        io.kompose.service: mydiary-back
+    spec:
+      nodeSelector:
+        kubernetes.io/hostname: k8s-node2
+      containers:
+        - env:
+            - name: SPRING_DATASOURCE_PASSWORD
+              value: user
+            - name: SPRING_DATASOURCE_URL
+              value: jdbc:mysql://mydiary-db:3306/paperdb?serverTimezone=Asia/Seoul
+            - name: SPRING_DATASOURCE_USERNAME
+              value: user
+          image: dbgurum/mydiary-back:1.0
+          name: rolling-server
+          ports:
+            - containerPort: 8080
+          resources: {}
+      restartPolicy: Always
+status: {}

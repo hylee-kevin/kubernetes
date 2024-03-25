@@ -1,0 +1,40 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: wordpress
+  namespace: 2tier-ns  
+  labels:
+    app: wordpress
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: wordpress
+  template:
+    metadata:
+      labels:
+        app: wordpress
+    spec:
+      containers:
+        - image: wordpress
+          name: wordpress
+          env:
+          - name: WORDPRESS_DB_HOST
+            value: mysql:3306
+          - name: WORDPRESS_DB_NAME
+            value: fcdb
+          - name: WORDPRESS_DB_USER
+            value: fcuser
+          - name: WORDPRESS_DB_PASSWORD
+            value: Passw0rD
+          ports:
+            - containerPort: 80
+              name: wordpress
+          volumeMounts:
+            - name: wordpress-persistent-storage
+              mountPath: /var/www/html
+      volumes:
+        - name: wordpress-persistent-storage
+          persistentVolumeClaim:
+            claimName: wordpress-pvc 
+

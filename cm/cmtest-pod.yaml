@@ -1,0 +1,15 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  labels:
+    run: cmtest-pod
+  name: cmtest-pod
+spec:
+  containers:
+  - image: dbgurum/mynode:fc.2.0
+    name: cmtest-pod
+    ports:
+    - containerPort: 8000
+    envFrom:
+    - configMapRef:
+        name: api-key  

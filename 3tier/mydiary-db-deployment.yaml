@@ -1,0 +1,50 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  annotations:
+    kompose.cmd: kompose convert
+    kompose.version: 1.28.0 (c4137012e)
+  creationTimestamp: null
+  labels:
+    io.kompose.service: mydiary-db
+  name: mydiary-db
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      io.kompose.service: mydiary-db
+  strategy: {}
+  template:
+    metadata:
+      annotations:
+        kompose.cmd: kompose convert
+        kompose.version: 1.28.0 (c4137012e)
+      creationTimestamp: null
+      labels:
+        io.kompose.network/3tier-rolling-be-db: "true"
+        io.kompose.service: mydiary-db
+    spec:
+      nodeSelector:
+        kubernetes.io/hostname: k8s-node3
+      containers:
+        - args:
+            - --character-set-server=utf8
+            - --collation-server=utf8_general_ci
+          env:
+            - name: MYSQL_DATABASE
+              value: paperdb
+            - name: MYSQL_PASSWORD
+              value: user
+            - name: MYSQL_ROOT_HOST
+              value: '%'
+            - name: MYSQL_ROOT_PASSWORD
+              value: pass123
+            - name: MYSQL_USER
+              value: user
+          image: mysql:5.7-debian
+          name: rolling-db
+          ports:
+            - containerPort: 3306
+          resources: {}
+      restartPolicy: Always
+status: {}

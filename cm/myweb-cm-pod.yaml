@@ -1,0 +1,20 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  labels:
+    run: myweb-cm-pod
+  name: myweb-cm-pod
+spec:
+  containers:
+  - image: nginx:1.25.3-alpine
+    name: myweb-cm-pod
+    ports:
+    - containerPort: 80
+    volumeMounts:
+    - name: nginx-index-file
+      mountPath: /usr/share/nginx/html/
+  volumes:
+  - name: nginx-index-file
+    configMap:
+      name: index-cm
+

@@ -1,0 +1,24 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    app: smoke-deploy
+  name: smoke-deploy
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: smoke-deploy
+  strategy: {}
+  template:
+    metadata:
+      labels:
+        app: smoke-deploy
+    spec:
+      containers:
+      - image: python:2.7-slim
+        name: smoke-container
+        command: ["/bin/bash","-c","echo \"<h1>Smoke Test Deployment : $(hostname).</h1>\" > index.html; python -m SimpleHTTPServer 8000"]
+        ports:
+        - containerPort: 8000
+
